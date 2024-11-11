@@ -53,6 +53,10 @@ h1 {
     margin: 1.5rem 0;
     animation: shake 1s infinite;
     cursor: pointer;
+    
+}
+.gift-box-2{
+    display:none;
 }
 
 @keyframes bounce {
@@ -100,3 +104,21 @@ h1 {
     }
 }
 
+.falling-star {
+    position: fixed;
+    color: gold;
+    font-size: 20px;
+    animation: fall 3s linear infinite;
+    z-index: 1000;
+}
+
+@keyframes fall {
+    0% {
+        transform: translateY(-100vh) rotate(0deg);
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(100vh) rotate(360deg);
+        opacity: 0;
+    }
+}
