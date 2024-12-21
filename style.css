@@ -10,7 +10,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    background: linear-gradient(135deg, #ff69b4, #ff1493);
+    background: linear-gradient(135deg, #388af4, #3187f6);
     padding: 1rem;
 }
 
@@ -25,7 +25,7 @@ body {
 }
 
 h1 {
-    color: #ff1493;
+    color: #2f14ff;
     margin-bottom: 1.5rem;
     font-size: 2.5rem;
 }
