@@ -73,25 +73,18 @@ function animate() {
 function updateCountdown() {
     const now = new Date();
     const nextYear = new Date(now.getFullYear() + 1, 0, 1, 0, 0, 0);
-    const diff = nextYear - now;
-
-    if (diff <= 1000) {
-        // Hide countdown elements
+    const currentYear = new Date(now.getFullYear(), 0, 1, 0, 0, 0);
+    
+    // Check if we're in January 1st
+    if (now.getMonth() === 0 && now.getDate() === 1) {
+        // Hide countdown and show celebration
         countdownElement.classList.add('hidden');
         titleElement.classList.add('hidden');
-        
-        // If exactly 1 second remaining, wait 1 second before showing celebration
-        if (diff > 0) {
-            setTimeout(() => {
-                showCelebration();
-            }, diff);
-            return;
-        }
-        
-        // If time is up, show celebration immediately
         showCelebration();
         return;
     }
+    
+    const diff = nextYear - now;
 
     const days = Math.floor(diff / (1000 * 60 * 60 * 24));
     const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
@@ -133,6 +126,14 @@ function showCelebration() {
     }
 }
 
-// Initial countdown and update every second
-updateCountdown();
-setInterval(updateCountdown, 1000);
+// Check if it's January 1st immediately and show celebration if it is
+const now = new Date();
+if (now.getMonth() === 0 && now.getDate() === 1) {
+    countdownElement.classList.add('hidden');
+    titleElement.classList.add('hidden');
+    showCelebration();
+} else {
+    // Otherwise start the countdown
+    updateCountdown();
+    setInterval(updateCountdown, 1000);
+}
