@@ -1,28 +1,138 @@
 const countdownElement = document.getElementById('countdown');
 const celebrationElement = document.getElementById('celebration');
+const daysElement = document.getElementById('days');
+const hoursElement = document.getElementById('hours');
+const minutesElement = document.getElementById('minutes');
+const secondsElement = document.getElementById('seconds');
+const titleElement = document.querySelector('h1');
+const newYearSong = document.getElementById('newYearSong');
 
-function updateCountdown() {
-  const now = new Date();
-  const nextYear = new Date(now.getFullYear() + 1, 0, 1, 0, 0, 0);
-  const diff = nextYear - now;
+const particles = [];
+let canvas, ctx;
 
-  if (diff <= 0) {
-    countdownElement.classList.add('hidden');
-    celebrationElement.classList.remove('hidden');
-    return;
-  }
-
-  const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-  const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
-  const minutes = Math.floor((diff / (1000 * 60)) % 60);
-  const seconds = Math.floor((diff / 1000) % 60);
-
-  document.getElementById('days').textContent = days.toString().padStart(2, '0');
-  document.getElementById('hours').textContent = hours.toString().padStart(2, '0');
-  document.getElementById('minutes').textContent = minutes.toString().padStart(2, '0');
-  document.getElementById('seconds').textContent = seconds.toString().padStart(2, '0');
+function setupFireworks() {
+    canvas = document.getElementById('fireworks');
+    ctx = canvas.getContext('2d');
+    
+    // Handle window resize
+    function resizeCanvas() {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+    }
+    resizeCanvas();
+    window.addEventListener('resize', resizeCanvas);
+    
+    // Create particles
+    setInterval(createParticle, 50);
+    // Start animation
+    animate();
 }
 
-// Call updateCountdown immediately and then set interval
+function createParticle() {
+    particles.push({
+        x: Math.random() * canvas.width,
+        y: canvas.height,
+        size: Math.random() * 3 + 2,
+        color: `hsl(${Math.random() * 360}, 50%, 50%)`,
+        speedY: Math.random() * -15 - 5,
+        speedX: Math.random() * 6 - 3,
+        alpha: 1
+    });
+}
+
+function animate() {
+    ctx.fillStyle = 'rgba(0, 0, 0, 0.1)';
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    
+    for (let i = particles.length - 1; i >= 0; i--) {
+        let p = particles[i];
+        
+        // Draw particle
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+        ctx.fillStyle = p.color;
+        ctx.globalAlpha = p.alpha;
+        ctx.fill();
+        ctx.globalAlpha = 1;
+        
+        // Update position
+        p.x += p.speedX;
+        p.y += p.speedY;
+        p.speedY += 0.1; // gravity
+        p.alpha -= 0.005; // fade out
+        
+        // Remove particles that are off screen or faded out
+        if (p.y > canvas.height || p.alpha <= 0) {
+            particles.splice(i, 1);
+        }
+    }
+    
+    requestAnimationFrame(animate);
+}
+
+function updateCountdown() {
+    const now = new Date();
+    const nextYear = new Date(now.getFullYear() + 1, 0, 1, 0, 0, 0);
+    const diff = nextYear - now;
+
+    if (diff <= 1000) {
+        // Hide countdown elements
+        countdownElement.classList.add('hidden');
+        titleElement.classList.add('hidden');
+        
+        // If exactly 1 second remaining, wait 1 second before showing celebration
+        if (diff > 0) {
+            setTimeout(() => {
+                showCelebration();
+            }, diff);
+            return;
+        }
+        
+        // If time is up, show celebration immediately
+        showCelebration();
+        return;
+    }
+
+    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+    const minutes = Math.floor((diff / (1000 * 60)) % 60);
+    const seconds = Math.floor((diff / 1000) % 60);
+
+    daysElement.textContent = days.toString().padStart(2, '0');
+    hoursElement.textContent = hours.toString().padStart(2, '0');
+    minutesElement.textContent = minutes.toString().padStart(2, '0');
+    secondsElement.textContent = seconds.toString().padStart(2, '0');
+}
+
+function showCelebration() {
+    // Change background color to black
+    document.body.style.backgroundColor = 'black';
+    
+    celebrationElement.classList.remove('hidden');
+    
+    // Play New Year song with error handling
+    try {
+        newYearSong.play().catch(error => {
+            console.log('Audio playback failed:', error);
+        });
+    } catch (error) {
+        console.log('Audio playback failed:', error);
+    }
+    
+    // Create and setup fireworks
+    if (!document.getElementById('fireworks')) {
+        const fireworks = document.createElement('canvas');
+        fireworks.id = 'fireworks';
+        fireworks.style.position = 'fixed';
+        fireworks.style.top = '0';
+        fireworks.style.left = '0';
+        fireworks.style.zIndex = '-1';
+        document.body.appendChild(fireworks);
+        
+        setupFireworks();
+    }
+}
+
+// Initial countdown and update every second
 updateCountdown();
 setInterval(updateCountdown, 1000);
