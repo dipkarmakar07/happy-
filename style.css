@@ -1,124 +1,42 @@
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
 body {
-    font-family: Arial, sans-serif;
-    min-height: 100vh;
+    font-family: 'Arial', sans-serif;
+    text-align: center;
+    background: linear-gradient(to bottom, #000428, #004e92);
+    color: white;
+    height: 100vh;
+    margin: 0;
     display: flex;
     justify-content: center;
     align-items: center;
-    background: linear-gradient(135deg, #388af4, #3187f6);
-    padding: 1rem;
-}
-
-.container {
-    text-align: center;
-    background-color: rgba(255, 255, 255, 0.9);
-    padding: 2rem;
-    border-radius: 15px;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
-    width: 100%;
+  }
+  
+  .container {
     max-width: 600px;
-}
-
-h1 {
-    color: #2f14ff;
-    margin-bottom: 1.5rem;
+  }
+  
+  h1 {
     font-size: 2.5rem;
-}
-
-.icon-container {
-    margin: 1.5rem 0;
-}
-
-.icon-container i {
-    font-size: 2rem;
-    margin: 0 1rem;
-    color: #ff69b4;
-    animation: bounce 2s infinite;
-}
-
-.birthday-message {
-    font-size: 1.2rem;
-    line-height: 1.6;
-    color: #333;
-    margin: 1.5rem 0;
-}
-
-.gift-box {
-    font-size: 4rem;
-    margin: 1.5rem 0;
-    animation: shake 1s infinite;
-    cursor: pointer;
-    
-}
-.gift-box-2{
-    display:none;
-}
-
-@keyframes bounce {
-    0%, 100% {
-        transform: translateY(0);
+  }
+  
+  #countdown {
+    font-size: 3rem;
+    margin: 20px 0;
+  }
+  
+  .hidden {
+    display: none;
+  }
+  
+  #celebration {
+    animation: fadeIn 2s ease-in-out;
+  }
+  
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
     }
-    50% {
-        transform: translateY(-10px);
+    to {
+      opacity: 1;
     }
-}
-
-@keyframes shake {
-    0%, 100% {
-        transform: rotate(0);
-    }
-    25% {
-        transform: rotate(-10deg);
-    }
-    75% {
-        transform: rotate(10deg);
-    }
-}
-
-/* Mobile Responsive Styles */
-@media screen and (max-width: 480px) {
-    .container {
-        padding: 1rem;
-    }
-
-    h1 {
-        font-size: 1.8rem;
-    }
-
-    .icon-container i {
-        font-size: 1.5rem;
-        margin: 0 0.5rem;
-    }
-
-    .birthday-message {
-        font-size: 1rem;
-    }
-
-    .gift-box {
-        font-size: 3rem;
-    }
-}
-
-.falling-star {
-    position: fixed;
-    color: gold;
-    font-size: 20px;
-    animation: fall 3s linear infinite;
-    z-index: 1000;
-}
-
-@keyframes fall {
-    0% {
-        transform: translateY(-100vh) rotate(0deg);
-        opacity: 1;
-    }
-    100% {
-        transform: translateY(100vh) rotate(360deg);
-        opacity: 0;
-    }
-}
+  }
+  

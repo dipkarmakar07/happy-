@@ -1,43 +1,25 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Happy Birthday Banashree!</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="style.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Happy New Year Countdown</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="container">
-        <h1>Happy Birthday sayan 🎉</h1>
-        
-        <div class="icon-container">
-            <i class="fas fa-birthday-cake"></i>
-            <i class="fas fa-gift"></i>
-            <i class="fas fa-star"></i>
-        </div>
-
-        <div class="birthday-message">
-            Wishing you a day filled with joy, laughter, and wonderful memories!
-            <br><br>
-            May all your dreams come true! ✨
-        </div>
-
-        <div class="gift-box">
-           <div class="gift-box-1"> 🎁</div>
-           <div class="gift-box-2">
-            <img src="61yd9iiGzuL.SS700.png" alt="Loading" width="200" height="200">
-           </div>
-        </div>
-
-     
-        <audio id="birthdaySong" loop preload="auto autoplay loop">
-            <source src="videoplayback.aac" type="audio/mpeg">
-        </audio>
-
-
+  <div class="container">
+    <h1>🎉 Happy New Year Countdown 🎉</h1>
+    <div id="countdown">
+      <span id="days">00</span> : 
+      <span id="hours">00</span> : 
+      <span id="minutes">00</span> : 
+      <span id="seconds">00</span>
     </div>
-    <script src="scripts.js"></script>
+    <div id="celebration" class="hidden">
+      <h2>🎆 Happy New Year! 🎆</h2>
+      <p>Wishing you a wonderful year ahead!</p>
+    </div>
+  </div>
+  <script src="scripts.js"></script>
 </body>
 </html>
